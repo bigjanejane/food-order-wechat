@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家庭点餐互动</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 登录界面 -->
+    <div id="loginPage" class="page">
+        <div class="login-container">
+            <h1><i class="fas fa-utensils"></i> 家庭点餐</h1>
+            <div class="role-select">
+                <h3>请选择身份：</h3>
+                <button onclick="enterAsUser()" class="btn user-btn">
+                    <i class="fas fa-users"></i> 我是用户（来点餐）
+                </button>
+                <button onclick="showAdminLogin()" class="btn admin-btn">
+                    <i class="fas fa-user-shield"></i> 我是管理员
+                </button>
+            </div>
+            
+            <div id="adminLogin" class="admin-login" style="display: none;">
+                <h3>管理员登录</h3>
+                <input type="password" id="adminPassword" placeholder="请输入管理员密码" class="input-field">
+                <button onclick="loginAsAdmin()" class="btn login-btn">进入管理员界面</button>
+                <p class="tip">初始密码：admin123 （你可以在代码中修改）</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 用户界面 -->
+    <div id="userPage" class="page" style="display: none;">
+        <header>
+            <h1><i class="fas fa-concierge-bell"></i> 今日菜单</h1>
+            <button onclick="switchToLogin()" class="btn logout-btn">
+                <i class="fas fa-sign-out-alt"></i> 退出
+            </button>
+        </header>
+        
+        <div class="container">
+            <!-- 用户信息输入 -->
+            <div class="user-info-card">
+                <h3><i class="fas fa-user"></i> 填写你的信息</h3>
+                <input type="text" id="userName" placeholder="你的昵称（例如：小明）" class="input-field">
+                <div class="date-selection">
+                    <h4><i class="fas fa-calendar-alt"></i> 选择用餐日期（可多选）</h4>
+                    <div id="dateButtons" class="date-buttons">
+                        <!-- 日期按钮将通过JS动态生成 -->
+                    </div>
+                    <p class="tip">已选择日期：<span id="selectedDatesText">未选择</span></p>
+                </div>
+            </div>
+            
+            <!-- 菜品列表 -->
+            <div class="food-list">
+                <h2><i class="fas fa-list"></i> 菜品列表</h2>
+                <div id="foodItems" class="food-items">
+                    <!-- 菜品将通过JS动态加载 -->
+                </div>
+            </div>
+            
+            <!-- 点餐记录 -->
+            <div class="order-records">
+                <h2><i class="fas fa-clipboard-list"></i> 点餐记录</h2>
+                <div id="orderList" class="order-list">
+                    <!-- 点餐记录将通过JS动态加载 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 固定提交按钮 -->
+        <div class="submit-fixed">
+            <button onclick="submitOrder()" class="btn submit-btn">
+                <i class="fas fa-paper-plane"></i> 提交我的点餐
+            </button>
+        </div>
+    </div>
+
+    <!-- 管理员界面 -->
+    <div id="adminPage" class="page" style="display: none;">
+        <header>
+            <h1><i class="fas fa-user-shield"></i> 管理员界面</h1>
+            <button onclick="switchToLogin()" class="btn logout-btn">
+                <i class="fas fa-sign-out-alt"></i> 退出
+            </button>
+        </header>
+        
+        <div class="container">
+            <!-- 添加菜品 -->
+            <div class="admin-card">
+                <h2><i class="fas fa-plus-circle"></i> 添加新菜品</h2>
+                <div class="form-group">
+                    <input type="text" id="foodName" placeholder="菜品名称" class="input-field">
+                </div>
+                <div class="form-group">
+                    <label for="foodImage">菜品图片（网络图片链接）</label>
+                    <input type="text" id="foodImage" placeholder="例如：https://图片地址.jpg" class="input-field">
+                    <p class="tip">可以上传图片到图床获取链接，推荐用<a href="https://imgbb.com/" target="_blank">imgBB.com</a>（免费）</p>
+                </div>
+                <div class="form-group">
+                    <label for="foodRecipe">做法说明（支持B站/小红书视频链接）</label>
+                    <textarea id="foodRecipe" placeholder="填写做法说明，可以粘贴B站/小红书视频链接，例如：https://www.bilibili.com/video/BV1xxxx" class="input-field textarea"></textarea>
+                    <p class="tip">支持多行文字，视频链接会自动转换为可点击链接</p>
+                </div>
+                <button onclick="addFood()" class="btn add-btn">
+                    <i class="fas fa-plus"></i> 添加菜品
+                </button>
+            </div>
+            
+            <!-- 菜品管理 -->
+            <div class="admin-card">
+                <h2><i class="fas fa-edit"></i> 管理现有菜品</h2>
+                <div id="adminFoodList" class="admin-food-list">
+                    <!-- 菜品将通过JS动态加载 -->
+                </div>
+            </div>
+            
+            <!-- 点餐记录管理 -->
+            <div class="admin-card">
+                <h2><i class="fas fa-history"></i> 查看所有点餐记录</h2>
+                <div id="adminOrderList" class="admin-order-list">
+                    <!-- 点餐记录将通过JS动态加载 -->
+                </div>
+            </div>
+            
+            <!-- 修改密码 -->
+            <div class="admin-card">
+                <h2><i class="fas fa-key"></i> 修改管理员密码</h2>
+                <div class="form-group">
+                    <input type="password" id="newPassword" placeholder="新密码" class="input-field">
+                </div>
+                <button onclick="changePassword()" class="btn change-btn">
+                    <i class="fas fa-save"></i> 修改密码
+                </button>
+                <p class="tip">修改后下次登录需要用新密码</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+
+<!-- 微信分享配置 -->
+<script>
+  // 微信分享设置
+  document.addEventListener('DOMContentLoaded', function() {
+    // 设置页面标题和描述，便于微信分享
+    const shareTitle = '家庭点餐互动';
+    const shareDesc = '快来一起点餐吧！';
+    const shareImg = 'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&h=300&fit=crop';
+    
+    // 更新页面meta信息，优化微信分享显示
+    if (!document.querySelector('meta[property="og:title"]')) {
+      const ogTitle = document.createElement('meta');
+      ogTitle.setAttribute('property', 'og:title');
+      ogTitle.content = shareTitle;
+      document.head.appendChild(ogTitle);
+      
+      const ogDesc = document.createElement('meta');
+      ogDesc.setAttribute('property', 'og:description');
+      ogDesc.content = shareDesc;
+      document.head.appendChild(ogDesc);
+      
+      const ogImg = document.createElement('meta');
+      ogImg.setAttribute('property', 'og:image');
+      ogImg.content = shareImg;
+      document.head.appendChild(ogImg);
+      
+      const ogUrl = document.createElement('meta');
+      ogUrl.setAttribute('property', 'og:url');
+      ogUrl.content = window.location.href;
+      document.head.appendChild(ogUrl);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,438 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.page {
+    min-height: 100vh;
+    padding-bottom: 80px;
+}
+
+/* 登录界面 */
+.login-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.login-container h1 {
+    color: #ff6b6b;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+}
+
+.login-container h1 i {
+    margin-right: 10px;
+}
+
+.role-select {
+    margin: 30px 0;
+}
+
+.role-select h3 {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.user-btn {
+    background-color: #4cd964;
+    color: white;
+}
+
+.user-btn:hover {
+    background-color: #3ac753;
+}
+
+.admin-btn {
+    background-color: #5ac8fa;
+    color: white;
+}
+
+.admin-btn:hover {
+    background-color: #4ab5e8;
+}
+
+.admin-login {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+
+.admin-login h3 {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.input-field:focus {
+    border-color: #5ac8fa;
+    outline: none;
+}
+
+.textarea {
+    min-height: 100px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.login-btn {
+    background-color: #ff6b6b;
+    color: white;
+    margin-top: 15px;
+}
+
+.login-btn:hover {
+    background-color: #ff5252;
+}
+
+.tip {
+    font-size: 14px;
+    color: #888;
+    margin-top: 10px;
+}
+
+.tip a {
+    color: #5ac8fa;
+    text-decoration: none;
+}
+
+/* 公共头部 */
+header {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 1.5rem;
+}
+
+header h1 i {
+    margin-right: 10px;
+}
+
+.logout-btn {
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+    border: 2px solid white;
+    padding: 8px 15px;
+    width: auto;
+}
+
+.logout-btn:hover {
+    background-color: rgba(255,255,255,0.3);
+}
+
+/* 容器 */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 卡片样式 */
+.user-info-card, .admin-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.user-info-card h3, .admin-card h2 {
+    color: #555;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.user-info-card h3 i, .admin-card h2 i {
+    margin-right: 10px;
+    color: #5ac8fa;
+}
+
+/* 日期选择 */
+.date-selection {
+    margin-top: 20px;
+}
+
+.date-selection h4 {
+    color: #666;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.date-selection h4 i {
+    margin-right: 8px;
+    color: #ff6b6b;
+}
+
+.date-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.date-btn {
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.date-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.date-btn.selected {
+    background-color: #4cd964;
+    color: white;
+    border-color: #4cd964;
+}
+
+/* 菜品列表 */
+.food-list h2, .order-records h2 {
+    color: #555;
+    margin: 25px 0 15px;
+    display: flex;
+    align-items: center;
+}
+
+.food-list h2 i, .order-records h2 i {
+    margin-right: 10px;
+    color: #ff6b6b;
+}
+
+.food-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.food-card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.food-card:hover {
+    transform: translateY(-5px);
+}
+
+.food-image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.food-info {
+    padding: 15px;
+}
+
+.food-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.food-recipe {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.food-recipe a {
+    color: #5ac8fa;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.food-recipe a:hover {
+    text-decoration: underline;
+}
+
+.order-btn {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.order-btn:hover {
+    background-color: #ff5252;
+}
+
+.order-btn.selected {
+    background-color: #4cd964;
+}
+
+/* 点餐记录 */
+.order-list, .admin-order-list {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.order-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-user {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.order-dates {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.order-foods {
+    color: #888;
+    font-size: 13px;
+}
+
+/* 固定提交按钮 */
+.submit-fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    padding: 15px;
+    box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: white;
+    font-size: 18px;
+    padding: 15px;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #ff5252, #ff7b7b);
+}
+
+/* 管理员菜品列表 */
+.admin-food-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.admin-food-item {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #5ac8fa;
+}
+
+.food-controls {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.edit-btn, .delete-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.edit-btn {
+    background-color: #ffd166;
+    color: #333;
+}
+
+.delete-btn {
+    background-color: #ef476f;
+    color: white;
+}
+
+.change-btn, .add-btn {
+    background-color: #4cd964;
+    color: white;
+}
+
+.change-btn:hover, .add-btn:hover {
+    background-color: #3ac753;
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+    .login-container, .container {
+        padding: 15px;
+    }
+    
+    .food-items {
+        grid-template-columns: 1fr;
+    }
+    
+    .date-buttons {
+        flex-direction: column;
+    }
+}
